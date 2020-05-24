@@ -413,6 +413,17 @@ namespace
         s.set_alert_notify(std::bind(&alert_notify, cb));
     }
 
+    void alert_fd_notify(int const fd)
+    {
+        std::uint8_t dummy = 0;
+        ::write(fd, &dummy, 1);
+    }
+
+    void set_alert_fd(lt::session& s, int fd)
+    {
+        s.set_alert_notify(std::bind(&alert_fd_notify, fd));
+    }
+
     alert const*
     wait_for_alert(lt::session& s, int ms)
     {
@@ -1053,6 +1064,7 @@ void bind_session()
         .def("pop_alerts", &pop_alerts)
         .def("wait_for_alert", &wait_for_alert, return_internal_reference<>())
         .def("set_alert_notify", &set_alert_notify)
+        .def("set_alert_fd", &set_alert_fd)
         .def("add_extension", &add_extension)
 #if TORRENT_ABI_VERSION == 1
 #if TORRENT_USE_I2P

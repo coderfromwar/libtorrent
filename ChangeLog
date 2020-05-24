@@ -1,3 +1,4 @@
+	* add set_alert_fd in python binding, to supersede set_alert_notify
 	* fix resume data functions to save/restore more torrent flags
 	* limit number of concurrent HTTP announces
 	* fix queue position for force_rechecking a torrent that is not auto-managed
